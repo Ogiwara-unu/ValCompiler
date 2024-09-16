@@ -14,7 +14,7 @@ public class Compilador extends javax.swing.JFrame {
     int cont = 0;
 
     //Expresiones regulares
-    String palabras[] = {"SUMA", "RESTA", "MULTIPLICACION", "DIVISION", "INT", "IMPRIMIR", "ELEVAR", "RAIZ2", "RAIZ3", "FIBONACCI", "AYUDA"}; //conjunto de palabras reservadas
+    String palabras[] = {"suma", "resta", "multiplicacion", "division", "int", "imprimir", "elevar", "raiz2", "raiz3", "fibonacci", "ayuda"}; //conjunto de palabras reservadas
     boolean stopSystem = false; //Se usa en caso de que ocurra un error en la funcion sintax
     HashMap<String, Integer> vars = new HashMap<>();
 
