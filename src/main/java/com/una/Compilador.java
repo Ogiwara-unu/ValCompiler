@@ -1,5 +1,6 @@
 package com.una;
 
+import java.awt.*;
 import java.util.StringTokenizer;
 import java.util.HashMap;
 
@@ -266,22 +267,22 @@ public class Compilador extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        background = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jPanel3 = new javax.swing.JPanel();
-        txtATexto1 = new javax.swing.JEditorPane();
-        Lineas = new javax.swing.JEditorPane();
+        leftLineEditor = new javax.swing.JPanel();
+        textEditor = new javax.swing.JEditorPane();
+        editorNumberLine = new javax.swing.JEditorPane();
         jScrollPane5 = new javax.swing.JScrollPane();
         Error = new javax.swing.JEditorPane();
         Compilar = new javax.swing.JButton();
         Limpiar = new javax.swing.JButton();
         compejecutar = new javax.swing.JButton();
-        LineaError = new javax.swing.JEditorPane();
+        errorLineLeft = new javax.swing.JEditorPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        txtATexto1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        txtATexto1.addKeyListener(new java.awt.event.KeyAdapter() {
+        textEditor.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        textEditor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtATexto1KeyPressed(evt);
             }
@@ -290,31 +291,43 @@ public class Compilador extends javax.swing.JFrame {
             }
         });
 
-        Lineas.setEditable(false);
-        Lineas.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        Lineas.setText("1");
-        Lineas.setOpaque(false);
+        editorNumberLine.setEditable(false);
+        editorNumberLine.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        editorNumberLine.setText("1");
+        editorNumberLine.setOpaque(false);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(leftLineEditor);
+        
+        leftLineEditor.setBackground(new Color(0,0,0));
+        editorNumberLine.setBackground(new Color(92,34,1));
+        errorLineLeft.setBackground(new Color(92,100,34));
+        editorNumberLine.setBackground(new Color(92,100,100));
+        Error.setBackground(new Color(36, 219, 219));
+        jPanel1.setBackground(new Color(20, 129, 20));
+        jScrollPane2.setBackground(new Color(237, 245, 237));
+        jScrollPane5.setBackground(new Color(237, 50, 237));
+        textEditor.setBackground(new Color(10, 245, 20));
+        
+        
+        leftLineEditor.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
                 jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addGap(31, 31, 31)
-                                .addComponent(Lineas, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(editorNumberLine, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtATexto1, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE))
+                                .addComponent(textEditor, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
                 jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtATexto1, javax.swing.GroupLayout.PREFERRED_SIZE, 3000, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(Lineas, javax.swing.GroupLayout.PREFERRED_SIZE, 3000, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(textEditor, javax.swing.GroupLayout.PREFERRED_SIZE, 3000, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(editorNumberLine, javax.swing.GroupLayout.PREFERRED_SIZE, 3000, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jScrollPane2.setViewportView(jPanel3);
+        jScrollPane2.setViewportView(leftLineEditor);
 
         Error.setEditable(false);
         Error.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -347,19 +360,19 @@ public class Compilador extends javax.swing.JFrame {
             }
         });
 
-        LineaError.setEditable(false);
-        LineaError.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        LineaError.setForeground(java.awt.Color.red);
-        LineaError.setToolTipText("");
-        LineaError.setOpaque(false);
+        errorLineLeft.setEditable(false);
+        errorLineLeft.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        errorLineLeft.setForeground(java.awt.Color.red);
+        errorLineLeft.setToolTipText("");
+        errorLineLeft.setOpaque(false);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(background);
+        background.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
                 jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(46, 46, 46)
-                                .addComponent(LineaError, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(errorLineLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel2Layout.createSequentialGroup()
@@ -384,7 +397,7 @@ public class Compilador extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(49, 49, 49)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(LineaError)
+                                        .addComponent(errorLineLeft)
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -406,11 +419,11 @@ public class Compilador extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -429,10 +442,12 @@ public class Compilador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+
     private void txtATexto1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtATexto1KeyPressed
-        StringTokenizer st = new StringTokenizer(txtATexto1.getText(), "\n", true);
+        StringTokenizer st = new StringTokenizer(textEditor.getText(), "\n", true);
         String txt = "", token;
-        LineaError.setText("");
+        errorLineLeft.setText("");
         Error.setText("");
         cont = 1;
 
@@ -446,11 +461,11 @@ public class Compilador extends javax.swing.JFrame {
         for (int i = 1; i <= cont; i++) {
             txt += i + "\n";
         }
-        Lineas.setText(txt);
+        editorNumberLine.setText(txt);
     }//GEN-LAST:event_txtATexto1KeyPressed
 
     private void txtATexto1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtATexto1KeyReleased
-        StringTokenizer st = new StringTokenizer(txtATexto1.getText(), "\n", true);
+        StringTokenizer st = new StringTokenizer(textEditor.getText(), "\n", true);
         String txt = "", token;
         cont = 1;
 
@@ -464,13 +479,13 @@ public class Compilador extends javax.swing.JFrame {
         for (int i = 1; i <= cont; i++) {
             txt += i + "\n";
         }
-        Lineas.setText(txt);
+        editorNumberLine.setText(txt);
     }//GEN-LAST:event_txtATexto1KeyReleased
 
-    private void CompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompilarActionPerformed
-        String texto = this.txtATexto1.getText();
+    private void CompilarActionPerformed(java.awt.event.ActionEvent evt) {
+        String texto = this.textEditor.getText();
         this.Error.setText(" ");
-        vars.clear(); //limpiamos por si la persona quiere compilar varias veces
+        vars.clear();
         this.stopSystem = false;
         StringTokenizer tokens = new StringTokenizer(texto, ";\n\r");
         String sentencia = "";
@@ -485,30 +500,30 @@ public class Compilador extends javax.swing.JFrame {
             }
 
         }
-    }//GEN-LAST:event_CompilarActionPerformed
+    }
 
-    private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarActionPerformed
-        txtATexto1.setText("");
-        LineaError.setText("");
+    private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {
+        textEditor.setText("");
+        errorLineLeft.setText("");
         Error.setText("");
-    }//GEN-LAST:event_LimpiarActionPerformed
+    }
 
-    private void compejecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compejecutarActionPerformed
+    private void compejecutarActionPerformed(java.awt.event.ActionEvent evt) {
         this.Error.setText(" ");
         this.stopSystem = false;
-        vars.clear(); //limpiamos por si la persona quiere compilar y ejecutar varias veces
-        String texto = this.txtATexto1.getText();
+        vars.clear();
+        String texto = this.textEditor.getText();
         StringTokenizer tokens = new StringTokenizer(texto, ";\n\r");
         String sentencia = "";
         while (tokens.hasMoreTokens()) {
             sentencia = tokens.nextToken();
             if (!stopSystem) {
-                sintax(sentencia, true);//Como se ejecuta se manda  true para que se ejecuten las funciones
+                sintax(sentencia, true);
             } else {
                 return;
             }
         }
-    }//GEN-LAST:event_compejecutarActionPerformed
+    }
 
     /**
      * @param args the command line arguments
@@ -549,15 +564,19 @@ public class Compilador extends javax.swing.JFrame {
     public javax.swing.JButton Compilar;
     private javax.swing.JEditorPane Error;
     private javax.swing.JButton Limpiar;
-    private javax.swing.JEditorPane LineaError;
-    private javax.swing.JEditorPane Lineas;
+    private javax.swing.JEditorPane errorLineLeft;
+    private javax.swing.JEditorPane editorNumberLine;
     private javax.swing.JButton compejecutar;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel background;
+    private javax.swing.JPanel leftLineEditor;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JEditorPane txtATexto1;
+    private javax.swing.JEditorPane textEditor;
+
+
     // End of variables declaration//GEN-END:variables
+
+
 
 }
