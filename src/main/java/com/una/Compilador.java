@@ -11,7 +11,6 @@ import java.util.StringTokenizer;
 import java.util.HashMap;
 
 /**
- *
  * @author Valeria Fernandez Carvajal
  * @author Randall Alvarez Cheveez
  */
@@ -21,11 +20,11 @@ public class Compilador extends javax.swing.JFrame {
     int cont = 0;
 
     //Expresiones regulares
-    String palabras[] = {"suma", "resta", "multiplicacion", "division", "int", "imprimir", "elevar", "raiz2", "raiz3", "fibonacci", "ayuda"}; //conjunto de palabras reservadas
+    String palabras[] = {"suma", "resta", "multiplicacion", "division", "var", "imprimir", "elevar", "raiz2", "raiz3", "fibonacci", "ayuda"}; //conjunto de palabras reservadas
     boolean stopSystem = false; //Se usa en caso de que ocurra un error en la funcion sintax
     HashMap<String, Integer> vars = new HashMap<>();
 
-    public void sintax(String pSentencia, boolean pActionSwitch) {
+    public void sintax(String sentencia, boolean pActionSwitch) {
         boolean activeSwitch = pActionSwitch;
         byte result = -2;
 
@@ -33,7 +32,7 @@ public class Compilador extends javax.swing.JFrame {
         int value2 = 0;
         String mensaje = "", text = " ";
         String[] array = new String[3];
-        array = pSentencia.split(" ");
+        array = sentencia.split(" ");
 
         for (byte i = 0; i < this.palabras.length; i++) {//Se recorre buscando la funcion invocada por el usuario
             if (array[0].matches(this.palabras[i])) {
@@ -43,15 +42,15 @@ public class Compilador extends javax.swing.JFrame {
         }
         if (result >= 0) {
             if (result == 4) { //En caso de que sea una varible
-                if (this.sintaxVariable(pSentencia) != 1) { //SI es diferente de 1 sigifica que hubo un error => (duplicidad,no existe,guarda letras)
+                if (this.sintaxVariable(sentencia) != 1) { //hubo un error
                     return;
                 }
-            }//Fin Verificacion Variable
-            else if (result == 5) {//Se verifica la funcion IMPRIMIR
-                array = pSentencia.split(" ");
+            }
+            else if (result == 5) {
+                array = sentencia.split(" ");
                 text = this.Error.getText();
 
-                for (int i = 1; i < array.length; i++) { //Se toma el mensaje
+                for (int i = 1; i < array.length; i++) {
                     mensaje = mensaje + " " + array[i];
                 }
                 this.Error.setText(text + "\n" + mensaje);
@@ -62,8 +61,7 @@ public class Compilador extends javax.swing.JFrame {
             }//Fin Imprimir
 
 
-            //Se procede a verificar si son numeros o variables
-            //Puede que el array venga de 2 (caso de las funciones de raiz) o de 3
+
             if (array.length == 2) {
                 value1 = getValue(array[1]);
             } else if (array.length == 3) {
@@ -71,16 +69,16 @@ public class Compilador extends javax.swing.JFrame {
                 value2 = getValue(array[2]);
             }
 
-            if (value1 == 'n' || value2 == 'n') {//Si alguno de los valores no es valido
-                activeSwitch = false;//Se desactiva el switch en caso de que la variable o numero no sea valido
+            if (value1 == 'n' || value2 == 'n') {
+                activeSwitch = false;
                 return;
             } else {
-                if (!activeSwitch) {//Se activa el Swicth si la funcion es llamada desde el boton compilar
+                if (!activeSwitch) {
                     this.Error.setText("Compilacion Exitosa");
                 }
             }
 
-            if (activeSwitch) {//Se activa el Swicth, ya que la funcion es llamada por "CompilaryEjecutar"
+            if (activeSwitch) {
                 fnSwitch(result, value1, value2, mensaje);
             }
 
@@ -90,30 +88,30 @@ public class Compilador extends javax.swing.JFrame {
         }
     }
 
-    public int getValue(String pVariable) {
-        boolean numeric = pVariable.matches("\\d*");
+    public int getValue(String var) {
+        boolean numeric = var.matches("\\d*");
         if (numeric) {
-            return Integer.parseInt(pVariable);
+            return Integer.parseInt(var);
 
         } else {
-            if (this.vars.containsKey(pVariable)) {
-                return this.vars.get(pVariable);
+            if (this.vars.containsKey(var)) {
+                return this.vars.get(var);
             } else {
-                this.Error.setText("Errror!!! La variable: " + pVariable + " no existe.");
+                this.Error.setText("Errror!!! La variable: " + var + " no existe.");
                 this.stopSystem = true;
             }
         }
         return 'n';
     }
 
-    public int fibo(int n) {
+    public int fibonacci(int n) {
         if (n == 0) {
             return 0;
         } else if (n == 1) {
             return 1;
         } else {
             //Hago la suma
-            return fibo(n - 1) + fibo(n - 2);
+            return fibonacci(n - 1) + fibonacci(n - 2);
         }
 
     }
@@ -127,73 +125,79 @@ public class Compilador extends javax.swing.JFrame {
             text = this.Error.getText();
             switch (i) {
                 case 0:
-                    this.Error.setText(text +"\n"+i+ "=> SUMA X1 X2;");
+                    this.Error.setText(text + "\n" + i + "=> SUMA X1 X2;");
                     break;
                 case 1:
-                    this.Error.setText(text +"\n"+i+ "=> RESTA X1 X2;");
+                    this.Error.setText(text + "\n" + i + "=> RESTA X1 X2;");
                     break;
                 case 2:
-                    this.Error.setText(text +"\n"+i+ "=> MULTIPLICACION X1 X2;");
+                    this.Error.setText(text + "\n" + i + "=> MULTIPLICACION X1 X2;");
                     break;
                 case 3:
-                    this.Error.setText(text+"\n"+i+ "=> DIVISION X1 X2;");
+                    this.Error.setText(text + "\n" + i + "=> DIVISION X1 X2;");
                     break;
                 case 4:
-                    this.Error.setText(text +"\n"+i+ "=> Declaracion Variable: INT NOMBRE X1;");
+                    this.Error.setText(text + "\n" + i + "=> Declaracion Variable: INT NOMBRE X1;");
                     break;
                 case 5:
-                    this.Error.setText(text +"\n"+i+ "=> IMPRIMIR TEXTO;");
+                    this.Error.setText(text + "\n" + i + "=> IMPRIMIR TEXTO;");
                     break;
                 case 6:
-                    this.Error.setText(text +"\n"+i+ "=> ELEVAR X1 X2;");
+                    this.Error.setText(text + "\n" + i + "=> ELEVAR X1 X2;");
                     break;
                 case 7:
-                    this.Error.setText(text +"\n"+i+ "=> Raiz Cuadrada: RAIZ2 X1;");
+                    this.Error.setText(text + "\n" + i + "=> Raiz Cuadrada: RAIZ2 X1;");
                     break;
                 case 8:
-                    this.Error.setText(text +"\n"+i+ "=> Raiz Cubica: RAIZ3 X1;");
+                    this.Error.setText(text + "\n" + i + "=> Raiz Cubica: RAIZ3 X1;");
                     break;
                 case 9:
-                    this.Error.setText(text +"\n"+i+ "=> FIBONACCI X1;");
+                    this.Error.setText(text + "\n" + i + "=> FIBONACCI X1;");
                     break;
                 case 10:
-                    this.Error.setText(text +"\n"+i+ "=> Informacion del Sistema:AYUDA;");
+                    this.Error.setText(text + "\n" + i + "=> Informacion del Sistema:AYUDA;");
                     break;
                 default:
                     break;
             }
-            //String palabras[] = {"ELEVAR", "RAIZ2", "RAIZ3", "FIBONACCI","?"}; //conjunto de palabras reservadas
+
 
         }
 
     }
 
-    public void fnSwitch(byte pPoss, int value1, int value2, String pMensaje) {
+    public void fnSwitch(byte poss, int value1, int value2, String mensaje) {
         String text = this.Error.getText();
         int resultado = 0;
-        switch (pPoss) {
-            case 0://Suma
+        switch (poss) {
+            case 0:
+                //Suma
                 resultado = value1 + value2;
                 this.Error.setText(text + "\n" + "El resultado de la suma es: " + resultado);
 
                 break;
-            case 1://Resta
+            case 1:
+                //Resta
                 resultado = value1 - value2;
                 this.Error.setText(text + "\n" + "El resultado de la resta es: " + resultado);
                 break;
 
-            case 2://Multiplicacion
+            case 2:
+                //Multiplicacion
                 resultado = value1 * value2;
                 this.Error.setText(text + "\n" + "El resultado de la multiplicacion es: " + resultado);
                 break;
-            case 3://Division
+            case 3:
+                //Division
                 resultado = value1 / value2;
                 this.Error.setText(text + "\n" + "El resultado de la division es: " + resultado);
                 break;
-            case 5://Imprimir
-                this.Error.setText(text + "\n" + pMensaje);
+            case 5:
+                //Imprimir
+                this.Error.setText(text + "\n" + mensaje);
                 break;
-            case 6: //Potencia
+            case 6:
+                //Potencia
                 resultado = 1;
                 System.out.println(value1);
                 System.out.println(value2);
@@ -203,21 +207,25 @@ public class Compilador extends javax.swing.JFrame {
                 }
                 this.Error.setText(text + "\n" + "El resultado de la potencia es: " + resultado);
                 break;
-            case 7: //Raiz cuadrada
+            case 7:
+                //Raiz cuadrada
                 resultado = (int) Math.sqrt(value1);
                 this.Error.setText(text + "\n" + "El resultado de la raiz cuadrada es: " + resultado);
                 break;
-            case 8: //Raiz cubica
+            case 8:
+                //Raiz cubica
                 float val1 = value1;
                 double res2;
                 res2 = Math.pow(val1, (double) 1 / 3);
                 this.Error.setText(text + "\n" + "El resultado de la raiz cubica es: " + res2);
                 break;
-            case 9: //Fibonacci
-                resultado = fibo(value1);
+            case 9:
+                //Fibonacci
+                resultado = fibonacci(value1);
                 this.Error.setText(text + "\n" + "Fibonacci de " + value1 + " es: " + resultado);
                 break;
-            case 10: //Ayuda
+            case 10:
+                //Ayuda
                 this.ayuda();
                 break;
 
@@ -225,11 +233,11 @@ public class Compilador extends javax.swing.JFrame {
 
     }
 
-    public byte sintaxVariable(String pSentencia) {
-        String array[]; //= new String[3];
+    public byte sintaxVariable(String sentencia) {
+        String array[];
         boolean insert = false;
         boolean numeric = false;
-        array = pSentencia.split(" ");
+        array = sentencia.split(" ");
         numeric = array[2].matches("\\d*");
 
         //Vertifica que el nombre de la variable no se encuentre en el arreglo de palabras reservadas
@@ -262,10 +270,8 @@ public class Compilador extends javax.swing.JFrame {
     public Compilador() {
         initComponents();
         setLayout(new BorderLayout());
-
-        // Configura las propiedades de la ventana
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Centra la ventana en la pantalla
+        setLocationRelativeTo(null);
         setVisible(true);
         add(jPanel1, BorderLayout.CENTER);
 
@@ -298,9 +304,9 @@ public class Compilador extends javax.swing.JFrame {
         topPanel.setBackground(new Color(0x39, 0x41, 0x48));
 
         // Crear un JLabel para el texto
-        titleLabel = new JLabel("Val Compiler");
-        titleLabel.setForeground(new Color(0x59, 0x59, 0x59));
-        titleLabel.setFont(new Font("Tahoma", 3, 16));
+        titleLabel = new JLabel("Val Compiler :v ");
+        titleLabel.setForeground(new Color(255, 255, 255));
+        titleLabel.setFont(new Font("Tahoma", 3, 15));
 
 
         textEditor.setFont(new Font("Arial", 1, 12)); // NOI18N
@@ -309,6 +315,7 @@ public class Compilador extends javax.swing.JFrame {
             public void keyPressed(KeyEvent evt) {
                 txtATexto1KeyPressed(evt);
             }
+
             public void keyReleased(KeyEvent evt) {
                 txtATexto1KeyReleased(evt);
             }
@@ -330,8 +337,6 @@ public class Compilador extends javax.swing.JFrame {
         jScrollPane2.setBackground(new Color(0x39, 0x41, 0x48));
         jScrollPane5.setBackground(new Color(0x39, 0x41, 0x48));
         textEditor.setBackground(new Color(0x39, 0x41, 0x48));
-
-
 
 
         leftLineEditor.setLayout(jPanel3Layout);
@@ -466,7 +471,6 @@ public class Compilador extends javax.swing.JFrame {
         );
 
 
-
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -495,7 +499,6 @@ public class Compilador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-
     private void txtATexto1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtATexto1KeyPressed
         StringTokenizer st = new StringTokenizer(textEditor.getText(), "\n", true);
         String txt = "", token;
@@ -514,9 +517,9 @@ public class Compilador extends javax.swing.JFrame {
             txt += i + "\n";
         }
         editorNumberLine.setText(txt);
-    }//GEN-LAST:event_txtATexto1KeyPressed
+    }
 
-    private void txtATexto1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtATexto1KeyReleased
+    private void txtATexto1KeyReleased(java.awt.event.KeyEvent evt) {
         StringTokenizer st = new StringTokenizer(textEditor.getText(), "\n", true);
         String txt = "", token;
         cont = 1;
@@ -532,7 +535,7 @@ public class Compilador extends javax.swing.JFrame {
             txt += i + "\n";
         }
         editorNumberLine.setText(txt);
-    }//GEN-LAST:event_txtATexto1KeyReleased
+    }
 
     private void CompilarActionPerformed(java.awt.event.ActionEvent evt) {
         String texto = this.textEditor.getText();
@@ -612,7 +615,6 @@ public class Compilador extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton Compilar;
     private javax.swing.JEditorPane Error;
     private javax.swing.JButton Limpiar;
@@ -627,10 +629,5 @@ public class Compilador extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JEditorPane textEditor;
-
-
-    // End of variables declaration//GEN-END:variables
-
-
 
 }
