@@ -20,7 +20,7 @@ public class Compilador extends javax.swing.JFrame {
     int cont = 0;
 
     //Expresiones regulares
-    String palabras[] = {"suma", "resta", "multiplicacion", "division", "var", "imprimir", "elevar", "raiz2", "raiz3", "fibonacci", "ayuda"}; //conjunto de palabras reservadas
+    String palabras[] = {"suma", "resta", "multiplicacion", "division", "var", "imprimir", "elevar", "raiz2", "raiz3", "fibonacci","factorial", "ayuda"}; //conjunto de palabras reservadas
     boolean stopSystem = false; //Se usa en caso de que ocurra un error en la funcion sintax
     HashMap<String, Integer> vars = new HashMap<>();
 
@@ -116,6 +116,15 @@ public class Compilador extends javax.swing.JFrame {
 
     }
 
+    public int factorial(int n) {
+        if (n == 0 || n == 1) {
+            return 1;
+        } else {
+            return n * factorial(n - 1);
+        }
+    }
+
+
     public void ayuda() {
         String text = " ";
 
@@ -125,38 +134,42 @@ public class Compilador extends javax.swing.JFrame {
             text = this.Error.getText();
             switch (i) {
                 case 0:
-                    this.Error.setText(text + "\n" + i + "=> SUMA X1 X2;");
+                    this.Error.setText(text + "\n" + i + "=> suma X1 X2;");
                     break;
                 case 1:
-                    this.Error.setText(text + "\n" + i + "=> RESTA X1 X2;");
+                    this.Error.setText(text + "\n" + i + "=> resta X1 X2;");
                     break;
                 case 2:
-                    this.Error.setText(text + "\n" + i + "=> MULTIPLICACION X1 X2;");
+                    this.Error.setText(text + "\n" + i + "=> multiplicacion X1 X2;");
                     break;
                 case 3:
-                    this.Error.setText(text + "\n" + i + "=> DIVISION X1 X2;");
+                    this.Error.setText(text + "\n" + i + "=> division X1 X2;");
                     break;
                 case 4:
-                    this.Error.setText(text + "\n" + i + "=> Declaracion Variable: INT NOMBRE X1;");
+                    this.Error.setText(text + "\n" + i + "=> declaracion Variable: INT NOMBRE X1;");
                     break;
                 case 5:
-                    this.Error.setText(text + "\n" + i + "=> IMPRIMIR TEXTO;");
+                    this.Error.setText(text + "\n" + i + "=> imprimir TEXTO;");
                     break;
                 case 6:
-                    this.Error.setText(text + "\n" + i + "=> ELEVAR X1 X2;");
+                    this.Error.setText(text + "\n" + i + "=> elevar X1 X2;");
                     break;
                 case 7:
-                    this.Error.setText(text + "\n" + i + "=> Raiz Cuadrada: RAIZ2 X1;");
+                    this.Error.setText(text + "\n" + i + "=> raiz cuadrada: RAIZ2 X1;");
                     break;
                 case 8:
-                    this.Error.setText(text + "\n" + i + "=> Raiz Cubica: RAIZ3 X1;");
+                    this.Error.setText(text + "\n" + i + "=> raiz cubica: RAIZ3 X1;");
                     break;
                 case 9:
-                    this.Error.setText(text + "\n" + i + "=> FIBONACCI X1;");
+                    this.Error.setText(text + "\n" + i + "=> fibonacci X1;");
                     break;
                 case 10:
                     this.Error.setText(text + "\n" + i + "=> Informacion del Sistema:AYUDA;");
                     break;
+                case 11:
+                    this.Error.setText(text + "\n" + i + "=> factorial X1;");
+                    break;
+
                 default:
                     break;
             }
@@ -225,6 +238,12 @@ public class Compilador extends javax.swing.JFrame {
                 this.Error.setText(text + "\n" + "Fibonacci de " + value1 + " es: " + resultado);
                 break;
             case 10:
+                //Fibonacci
+                resultado = factorial(value1);
+                this.Error.setText(text + "\n" + "factorial de " + value1 + " es: " + resultado);
+                break;
+
+            case 11:
                 //Ayuda
                 this.ayuda();
                 break;
@@ -321,6 +340,10 @@ public class Compilador extends javax.swing.JFrame {
             }
         });
 
+
+
+
+
         editorNumberLine.setEditable(false);
         editorNumberLine.setFont(new Font("Arial", 1, 12)); // NOI18N
         editorNumberLine.setForeground(new Color(0xA6, 0x5E, 0x44));
@@ -363,7 +386,7 @@ public class Compilador extends javax.swing.JFrame {
         Error.setEditable(false);
         Error.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
         Error.setFont(new Font("Arial", 1, 12)); // NOI18N
-        Error.setForeground(Color.black);
+        Error.setForeground(Color.white);
         jScrollPane5.setViewportView(Error);
 
         Compilar.setFont(new Font("Tahoma", 1, 14)); // NOI18N
