@@ -146,7 +146,7 @@ public class Compilador extends javax.swing.JFrame {
                     this.Error.setText(text + "\n" + i + "=> division X1 X2;");
                     break;
                 case 4:
-                    this.Error.setText(text + "\n" + i + "=> declaracion Variable: INT NOMBRE X1;");
+                    this.Error.setText(text + "\n" + i + "=> declaracion Variable: var NOMBRE X1;");
                     break;
                 case 5:
                     this.Error.setText(text + "\n" + i + "=> imprimir TEXTO;");
@@ -238,7 +238,7 @@ public class Compilador extends javax.swing.JFrame {
                 this.Error.setText(text + "\n" + "Fibonacci de " + value1 + " es: " + resultado);
                 break;
             case 10:
-                //Fibonacci
+                //Factorial
                 resultado = factorial(value1);
                 this.Error.setText(text + "\n" + "factorial de " + value1 + " es: " + resultado);
                 break;
@@ -295,8 +295,6 @@ public class Compilador extends javax.swing.JFrame {
         add(jPanel1, BorderLayout.CENTER);
 
     }
-
-    @SuppressWarnings("unchecked")
 
     private void initComponents() {
 
